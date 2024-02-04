@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Homework 4</title>
+    </head>
+    
+    <body>
+    
+      <input id="from" type="text">
+      В инпуте написано: <span></span>
+      
+      <br>
+      
+      <button class="messageBtn">Показать блок</button>
+      <div class="message">
+        Привет :)
+      </div>
+      
+      <br>
+      
+      <form id="myForm">
+        <label>
+          Первый инпут:
+          <input class="form-control" type="text" name="input1">
+        </label>
+        <br>
+        <br>
+        <label>
+          Второй инпут:
+          <select class="form-control" name="input2">
+            <option value=""></option>
+            <option value="1">Один</option>
+            <option value="2">Два</option>
+          </select>
+        </label>
+        <br>
+        <br>
+        <button type="submit">Отправить</button>
+      </form>
+      
+      <script>
+        "use strict";
+      
+        // 1. При изменении значения в input с id="from", значение содержащееся в нем должно моментально отображаться в span.
+        const fromInput = document.getElementById('from');
+        const spanElement = document.querySelector('span');
+        fromInput.addEventListener('input', () => {
+          spanElement.textContent = fromInput.value;
+        });
+      
+        // 2. При клике на кнопку с классом messageBtn необходимо элементу с классом message:
+        // - добавить два класса: animate_animated и animate_fadeInLeftBig
+        // - поставить данному элементу стиль visibility в значение 'visible'.
+        const messageBtn = document.querySelector('.messageBtn');
+        const messageElement = document.querySelector('.message');
+        messageBtn.addEventListener('click', () => {
+          messageElement.classList.add('animate_animated', 'animate_fadeInLeftBig');
+          messageElement.style.visibility = 'visible';
+        });
+      
+        // 3. Необходимо при отправке формы проверить, заполнены ли все поля в этой форме.
+        const form = document.getElementById('myForm');
+        form.addEventListener('submit', (event) => {
+          event.preventDefault();
+          const inputs = form.querySelectorAll('input, select');
+          inputs.forEach(input => {
+            if (input.value.trim() === '') {
+              input.classList.add('error');
+            } else {
+              input.classList.remove('error');
+            }
+          });
+          const isEmptyField = Array.from(inputs).some(input => input.value.trim() === '');
+          if (!isEmptyField) {
+            form.submit();
+          }
+        });
+      
+        // Как только пользователь начинает заполнять какое-либо поле, необходимо, при вводе в данное поле, произвести проверку:
+        form.addEventListener('input', (event) => {
+          const input = event.target;
+          if (input.value.trim() === '') {
+            input.classList.add('error');
+          } else {
+            input.classList.remove('error');
+          }
+        });
+      </script>
+      
+    
+    </body>
+    
+    </html>
+    
+    
+    
+    
+    
